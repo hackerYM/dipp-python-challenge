@@ -1,14 +1,15 @@
-![image info](./images/logo.png)
+# Text Inside Box
 
-## About
+### About
 
-The point of these exercises is to give you the chance to show us what you know, 
-can do and how you approach problem-solving.
+![GitHub](https://img.shields.io/github/license/hackerYM/text-inside-box?color=blue)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/hackerYM/text-inside-box?color=blue)
+![Code Style](https://img.shields.io/badge/code%20style-flake8-000000.svg)
 
-When you feel you are ready, please email us your code solution and how we can run it.
-In your email you must include that this is your original work and was completed only by you.
+Simple APIs server to determine the suitable font size that will make the **content** fit inside 
+the predefined box based on a particular font, and draw this **text box** on an image provided by user.
 
-## Project setup
+### Project setup
 
 1. Create a virtual environment
     
@@ -36,14 +37,9 @@ In your email you must include that this is your original work and was completed
     ```
 
 
-## Code exercises
+### Main features
 
 #### Draw a text box inside the image
-
-In this part, we want you to determine the suitable font size that will make the **content** fit inside 
-a predefined box based on a particular font, and draw this **text box** on an image provided by user.
-
-We should be able to make the request to this endpoint: `[POST] /api/v1/draw/`.
 
 The input data should look like this:
 
@@ -99,27 +95,12 @@ The API should respond with an output similar to the following:
 }
 ```
 
-As you may have noticed, you may need to break the **content** into multiple lines or splits to fit a box.
-
 
 #### Get one image from the server
 
-You need to use previous API `[POST] /api/v1/draw/` to generate an image and save it 
-to the file system. Afterwards, users can get an image by the url link located in the server.
-
-We should be able to make the request to this endpoint: `[GET] /api/v1/images/<filename>/`. 
+Use the previous API `[POST] /api/v1/draw/` to generate an image and save it to the file system.
+Afterwards, users can get an image by the url link located in the server.
 
 The output image should look like this:
 
 ![Output](images/sample.png)
-
-
-### Important notes:
-
-- There is no **right** or **wrong** answer. We are interested in how you approach problem-solving.
-- Please fill free to use any library you want but don't forget to add it in `requirements.txt`
-- Please fill free to refactor the code if the structure does not fit your needs.
-- Please don't hesitate email us if you have any questions.
-
-
-### Good luck !!!
