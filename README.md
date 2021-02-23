@@ -2,8 +2,8 @@
 
 ### About
 
-![GitHub](https://img.shields.io/github/license/hackerYM/text-inside-box?color=blue)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/hackerYM/text-inside-box?color=blue)
+![GitHub](https://img.shields.io/github/license/hackerYM/text-inside-box)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/hackerYM/text-inside-box)
 ![Code Style](https://img.shields.io/badge/code%20style-flake8-000000.svg)
 
 Simple APIs server to determine the suitable font size that will make the **content** fit inside 
