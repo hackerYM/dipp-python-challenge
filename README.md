@@ -13,8 +13,8 @@ In your email you must include that this is your original work and was completed
 1. Create a virtual environment
     
     ```shell
-    virtualenv -p python3 <name of virtualenv>
-    source <name of virtualenv>/bin/activate
+    virtualenv -p python3 <name>
+    source <name>/bin/activate
     ```
 
 1. Install all requirements
