@@ -23,6 +23,12 @@ the predefined box based on a particular font, and draw this **text box** on an 
     ```shell
     pip install -r requirements.txt
     ```
+   
+1. Run the test cases
+
+    ```shell
+    python -m pytest -v
+    ```
 
 1. Run the server
 
@@ -30,10 +36,10 @@ the predefined box based on a particular font, and draw this **text box** on an 
     python manage.py run
     ```
    
-1. Run the test cases
+1. Get all routes
 
     ```shell
-    python -m pytest -v
+    python manage.py routes
     ```
 
 
@@ -65,25 +71,25 @@ The API should respond with an output similar to the following:
 
 ```json
 {
-    "resource": "http://localhost:8080/api/v1/images/82a78a5d46b443cd.jpg",
+    "resource": "http://localhost:8080/api/v1/images/1914fd2262504bb6.jpg",
     "splits": [
         {
             "content": "Dipp inc, thinking",
-            "font_size": 57,
-            "x": 40,
-            "y": 100
+            "font_size": 53,
+            "x": 50,
+            "y": 104
         },
         {
             "content": "out of how to draw",
-            "font_size": 57,
-            "x": 40,
+            "font_size": 53,
+            "x": 50,
             "y": 157
         },
         {
             "content": "a text on the box.",
-            "font_size": 57,
-            "x": 40,
-            "y": 214
+            "font_size": 53,
+            "x": 50,
+            "y": 210
         }
     ],
     "box": {
