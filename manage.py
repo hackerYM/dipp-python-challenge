@@ -5,6 +5,7 @@ from flask import current_app
 from flask_script import Shell, Manager
 
 from app.app import create_app
+from urllib.parse import unquote
 
 
 def _create_manager_obj(application):
@@ -31,6 +32,34 @@ def run():
     debug = current_app.config["DEBUG"]
 
     current_app.run(host=host, port=port, debug=debug)
+
+
+@manager.command
+def routes():
+    """
+    List the Api routes
+    """
+    output = []
+    print(unquote("{:40s} {:10s} {}".format("Name", "Method", "Path")))  # header
+
+    for rule in flask_app.url_map.iter_rules():
+        options = {}
+        for arg in rule.arguments:
+            options[arg] = f"[{arg}]"
+
+        methods = ", ".join(
+            [i for i in rule.methods if i not in ("HEAD", "OPTIONS")],  # filter out head and options
+        )
+
+        if rule.endpoint != "static":  # url = url_for(rule.endpoint, **options)
+            url = "%s" % rule
+            output.append({"endpoint": rule.endpoint, "methods": methods, "url": url})
+
+    for line in sorted(output, key=lambda l: l["url"]):
+        line = unquote("{:40s} {:10s} {}".format(line["endpoint"], line["methods"], line["url"]))
+        print(line)
+
+    print(f"\nTotal routes: {len(output)}")
 
 
 if __name__ == "__main__":

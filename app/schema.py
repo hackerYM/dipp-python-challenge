@@ -1,7 +1,10 @@
 """
 Module to handle the json parser
 """
+import wrapt
+
 from flask import request
+from typing import Callable
 from app.result import Response
 from jsonschema import Draft7Validator
 
@@ -40,19 +43,20 @@ draw_schema = {
 
 def schema_validate(data_schema: dict):
     """
-    Method to validate one json schema
+    The decorator that validating one json schema
     """
-    def _decorator(func):
-        def _wrapper(*args, **kwargs):
+    @wrapt.decorator
+    def wrapper(wrapped_func: Callable, _, args, kwargs):
+        """
+        Method to apply wrapt library to simply use the decorator
+        """
+        validator = Draft7Validator(data_schema)
+        errors = sorted(validator.iter_errors(request.get_json(force=True)), key=lambda e: e.path)
 
-            validator = Draft7Validator(data_schema)
-            errors = sorted(validator.iter_errors(request.get_json(force=True)), key=lambda e: e.path)
+        if errors:
+            message = [f"{list(error.path)} / {error.message}" for error in errors]
+            return Response(code=400, message=message).raise_exception()
+        else:
+            return wrapped_func(*args, **kwargs)
 
-            if errors:
-                message = [f"{list(error.path)} / {error.message}" for error in errors]
-                return Response(code=400, message=message).raise_exception()
-            else:
-                return func(*args, **kwargs)
-
-        return _wrapper
-    return _decorator
+    return wrapper
