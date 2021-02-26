@@ -1,10 +1,10 @@
 # Text Inside Box
 
-### About
-
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/hackerYM/text-inside-box)
 ![GitHub](https://img.shields.io/github/license/hackerYM/text-inside-box)
 ![Code Style](https://img.shields.io/badge/code%20style-flake8-000000.svg)
+
+### About
 
 Simple APIs server to determine the suitable font size that will make the **content** fit inside 
 the predefined box based on a particular font, and draw this **text box** on an image provided by user.
