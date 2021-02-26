@@ -29,6 +29,8 @@ the predefined box based on a particular font, and draw this **text box** on an 
     ```shell
     python -m pytest -v
     ```
+   
+    ![Sample](images/sample-01.png)
 
 1. Run the server
 
@@ -36,18 +38,22 @@ the predefined box based on a particular font, and draw this **text box** on an 
     python manage.py run
     ```
    
+    ![Sample](images/sample-02.png)
+   
 1. Get all routes
 
     ```shell
     python manage.py routes
     ```
+   
+    ![Sample](images/sample-03.png)
 
 
 ### Main features
 
 #### Draw a text box inside the image
 
-The input data should look like this:
+The input data should look like:
 
 ```json
 {
@@ -67,7 +73,7 @@ The input data should look like this:
 }
 ```
 
-The API should respond with an output similar to the following:
+The API will respond this output:
 
 ```json
 {
@@ -109,4 +115,4 @@ Afterwards, users can get an image by the url link located in the server.
 
 The output image should look like this:
 
-![Output](images/sample.png)
+![Sample](images/sample-04.png)

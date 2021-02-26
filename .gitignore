@@ -1,6 +1,6 @@
 # Project Files
 images/
-!images/sample.png
+!images/sample-*.png
 
 # IDE
 .idea
