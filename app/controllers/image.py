@@ -65,6 +65,9 @@ def _font_box_fit(box_size: dict, box_text: str, font_file: str) -> list:
     """
     Helper method to fit the content inside a predefined box
     """
+    width, height = box_size["width"] * 0.95, box_size["height"] * 0.95
+    shift_x, shift_y = box_size["width"] * 0.02, box_size["height"] * 0.025
+
     longest_word_len = len(max(box_text.split(), key=len))
     total_text_len = len(box_text)
 
@@ -80,26 +83,28 @@ def _font_box_fit(box_size: dict, box_text: str, font_file: str) -> list:
                 font_height += font.getsize(line)[1]
                 font_weight = max(font_weight, font.getsize(line)[0])
 
-            if font_weight >= box_size.get("width"):  # one word is longer than box width
+            if font_weight >= width:  # one word is longer than box width
                 break
 
-            if font_height + len(split_text) * 2 < box_size.get("height"):  # words are shorter than box height
-                return _box_fit_response(box_size, split_text, font_size)
+            if font_height + len(split_text) * 2 < height:  # words are shorter than box height
+                return _box_fit_response(box_size, split_text, font_size, shift_x, shift_y)
 
     return Response(code=400, message="Can not make a text fit in a box").raise_exception()
 
 
-def _box_fit_response(box_size: dict, split_text: list, font_size: int) -> list:
+def _box_fit_response(box_size: dict, split_text: list, font_size: int, shift_x: float, shift_y: float) -> list:
     """
     Helper method to build one splits result
     """
-    splits, offset = [], box_size.get("y")
+    splits, y_value = [], box_size["y"] + shift_y
+
     for content in split_text:
         split = {
-            "content": content, "font_size": font_size, "x": box_size["x"], "y": offset,
+            "content": content, "font_size": font_size,
+            "x": int(box_size["x"] + shift_x), "y": int(y_value),
         }
         splits.append(split)
-        offset += font_size
+        y_value += font_size
 
     return splits
 
@@ -116,7 +121,7 @@ def _generate_image(json: dict, text_splits: list, font_file: str, image_file: s
 
     for split in text_splits:
         font = ImageFont.truetype(font_file, split.get("font_size"))
-        draw.text((split["x"] + 2, split["y"]), split["content"], font=font, fill=json["text"]["text_color"])
+        draw.text((split["x"], split["y"]), split["content"], font=font, fill=json["text"]["text_color"])
 
     filename = f"{uuid.uuid4().hex[:16]}.jpg"
     source_img.save(f"{current_app.config['IMAGES_DIR']}/{filename}", "JPEG")

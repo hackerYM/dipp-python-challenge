@@ -18,8 +18,6 @@ class Response:
         Method to throw one Http exception immediately
         """
         json_resp = {
-            "code": self.code,
-            "message": self.message,
+            "code": self.code, "message": self.message,
         }
-
         abort(make_response(jsonify(json_resp), self.code))
