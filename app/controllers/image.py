@@ -71,8 +71,8 @@ def _font_box_fit(box_size: dict, box_text: str, font_file: str) -> list:
     longest_word_len = len(max(box_text.split(), key=len))
     total_text_len = len(box_text)
 
-    for font_size in range(100, 6, -1):
-        font = ImageFont.truetype(font_file, font_size)  # assume that the ideal font size is between 6 - 100
+    for font_size in range(120, 6, -1):
+        font = ImageFont.truetype(font_file, font_size)  # assume that the ideal font size is between 6 - 120
 
         for text_width in range(longest_word_len, total_text_len, 1):
             split_text = []
@@ -126,4 +126,7 @@ def _generate_image(json: dict, text_splits: list, font_file: str, image_file: s
     filename = f"{uuid.uuid4().hex[:16]}.jpg"
     source_img.save(f"{current_app.config['IMAGES_DIR']}/{filename}", "JPEG")
 
-    return f"{current_app.config['API_BASE_URL']}/images/{filename}"
+    image_url = f"{current_app.config['API_BASE_URL']}images/{filename}"
+    current_app.logger.info(f"Generate one image url - {image_url}")
+
+    return image_url
