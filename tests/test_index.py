@@ -5,34 +5,31 @@ from flask import current_app
 from http import HTTPStatus
 
 
-def test_api_index(client):
+def test_api_index(snapshot, client):
     """
     HAPPY: Should get the index of api server
     """
     response = client.get(current_app.config["API_BASE_PATH"])
-    json_resp = response.get_json()
 
     assert response.status_code == HTTPStatus.OK
-    assert json_resp["code"] == HTTPStatus.OK
+    snapshot.assert_match(response.get_json())
 
 
-def test_404_error(client):
+def test_404_error(snapshot, client):
     """
     SAD: Should get the 404 error
     """
     response = client.get("/")
-    json_resp = response.get_json()
 
     assert response.status_code == HTTPStatus.NOT_FOUND
-    assert json_resp["code"] == HTTPStatus.NOT_FOUND
+    snapshot.assert_match(response.get_json())
 
 
-def test_405_error(client):
+def test_405_error(snapshot, client):
     """
     SAD: Should get the 405 error
     """
     response = client.post(current_app.config["API_BASE_PATH"])
-    json_resp = response.get_json()
 
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
-    assert json_resp["code"] == HTTPStatus.METHOD_NOT_ALLOWED
+    snapshot.assert_match(response.get_json())
